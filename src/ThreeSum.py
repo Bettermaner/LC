@@ -14,10 +14,10 @@ def three_sum(inputs):
                 result.append(i,left,right)
                 left += 1
                 right -= 1
-                
-            elif sum < 0 and left < right:
+
+            elif sum < 0 :
                 left += 1
-            elif sum > 0 and left < right:
+            elif sum > 0 :
                 right -= 1
 
         return result
