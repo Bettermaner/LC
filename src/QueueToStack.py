@@ -12,7 +12,8 @@ class QTS:
 
         if not self.queue1:
             return None
-
+            
+        # 始终按照从左到右的顺利从queue1拿,放入到queue2中，直至queue1中只有一个value.
         while len(self.queue1) != 1:
             self.queue2.append(self.queue1.pop(0))
 

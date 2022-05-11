@@ -10,13 +10,13 @@ class STQ:
         self.stack1.append(value)
 
     def pop(self):
-
+        # 首先从stack2里面拿
         if self.stack2:
             return self.stack2.pop()
 
         if not self.stack1:
             return None
-
+        # 然后始终从stack1里面拿，全部放在stack2里面
         while self.stack1:
             self.stack2.append(self.stack1.pop())
 
