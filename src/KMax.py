@@ -1,4 +1,6 @@
 def get_k_max(inputs,k):
+    "最大k个值"
+
     if len(inputs) < k or len(inputs) == 0:
         return inputs
 

@@ -1,5 +1,6 @@
 def two_sum(inputs,target):
-
+    "两数之和"
+    
     if len(inputs) < 2:
         return None
 

@@ -2,6 +2,8 @@
 
 
 class STQ:
+    "两个栈实现队列"
+    
     def __init__(self):
         self.stack1 = []
         self.stack2 = []

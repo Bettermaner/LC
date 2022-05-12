@@ -1,5 +1,6 @@
 
 def ring_entrance_node(head):
+    "链表中是否有环,入口环,环长度"
 
     if not head:
         return None

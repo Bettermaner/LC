@@ -1,4 +1,6 @@
 def three_sum(nums):
+    "三数之和"
+
     result = []
     n = len(nums)
     if n < 3:
