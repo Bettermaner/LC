@@ -1,5 +1,6 @@
 def reverse_list(phead):
-
+    "反转链表"
+    
     if not phead:
         return None
 
