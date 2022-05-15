@@ -43,7 +43,7 @@ def knapasack_problem(weights, values, container):
             num -= 1
             continue
         else:
-            result.append(num - 1)
+            result.append(tr[num])
             c = c - tr[num]['w']
             num -= 1
 
