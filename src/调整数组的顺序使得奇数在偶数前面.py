@@ -10,22 +10,25 @@ def re_order_array(inputs):
     # 然后 将当前奇数保存,把奇数到第一个偶数之间所有的数的下标往后移一格，最后将保存的奇数赋值到第一个偶数位置
     # 偶数指针向前移动一格，奇数指针继续前走，直到再次遇到奇数，重复上述的操作,直至奇数指针走到底
     if not inputs:
-        return None
-
+            return None
+        
+    if len(inputs) <=1:
+        return inputs
+    
     l = len(inputs)
 
     odd_index = 0
     even_index = 0
 
     # 找出数组中第一个偶数位置
-    while inputs[even_index] % 2 :
+    while even_index < l and inputs[even_index] % 2 :
         even_index += 1
 
     # 找到数组中偶数位置右边的第一个奇数位置
-    while inputs[odd_index] % 2 == 0 or odd_index < even_index:
+    while odd_index < l and (inputs[odd_index] % 2 == 0 or odd_index < even_index) :
         odd_index += 1
 
-    while (odd_index < l and odd_index % 2 ):
+    while (odd_index < l):
         # 保存奇数
         tmp = inputs[odd_index]
 
@@ -42,9 +45,8 @@ def re_order_array(inputs):
         even_index += 1
 
         # 奇数指针继续前走，直到再次遇到奇数，重复上述的操作,直至奇数指针走到底,说明整个数组的奇数都移到了左边.
-        while (odd_index < l and odd_index % 2 == 0):
+        while (odd_index < l and inputs[odd_index] % 2 == 0):
             odd_index += 1
 
     return inputs
-        
 
