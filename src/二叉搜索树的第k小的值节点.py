@@ -1,7 +1,7 @@
 class KMinInBinaryTree:
 
     def __init__(self) -> None:
-        self.result = None
+        self.res = None
 
         # 记录从最左子树的左节点开始,中序遍历了多少次
         # 最左子树的左节点值最小,依次递增,递增到第k个则找到了第k小的数
