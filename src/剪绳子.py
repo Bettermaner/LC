@@ -13,7 +13,7 @@ def cut_rope(rope_length):
     dp = [0 for i in range(rope_length + 1)]
     dp[1],dp[2],dp[3],dp[4] = 1,2,3,4
     
-    # 那么后续遍历每个j的时候，我们取最大dp[i]=max(dp[i],j∗dp[i−j])dp[i] = max(dp[i], j * dp[i - j])dp[i]=max(dp[i],j∗dp[i−j])就好了。
+    # 那么后续遍历每个j的时候，我们取最大dp[i]=max(1 ∗dp[i−1 ],2 ∗dp[i−2 ],....j * dp[i-j] )就好了。j表示每一次不可分的部分的值大小
     for i in range(5,rope_length+1):
         for j in range(i):
             dp[i] = max(dp[i],dp[i -j] * dp[j]) 

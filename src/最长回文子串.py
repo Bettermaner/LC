@@ -9,7 +9,7 @@ def longest_palindrome(string):
     start = 0
     # 最长回文子串长度，由于长度为1时必定为回文子串，所以长度默认为1
     max_length = 1
-    # 建立二维表，dp[i][j],i表示当前起始的索引，j表示当前结尾的下标
+    # 建立二维表，dp[i][j],i表示当前起始的索引，j表示当前结尾的下标，dp[i][j]表示当前范围内的字符串是否为回文子串。
     dp = [[False for i in range(string_len)] for j in range(string_len)]
 
     # 在当前j个字符的情况下进行遍历,说明结尾下标目前为j

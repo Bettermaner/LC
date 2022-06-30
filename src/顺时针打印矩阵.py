@@ -25,7 +25,7 @@ def print_matrix(matrix):
             break
 
         for i in range(up, down+1):
-            result.append(matrix[i], [right])
+            result.append(matrix[i][right])
         right -= 1
 
         if right < left:
