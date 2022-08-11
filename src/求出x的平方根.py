@@ -9,3 +9,24 @@ def my_sqrt(x):
             break
 
     return i 
+
+
+# 1.带浮点的值开平方根，要求返回的值不仅仅包含整数，也带浮点
+# 二分法
+def func(x,n):
+
+    left = 0
+    right = x
+
+    while (right - left) > 0.1 ** n:
+        mid = (left + right) // 2
+
+        if mid ** 2  > x:
+            right = mid
+        elif mid ** 2 < x:
+            left = mid
+        else:
+            left = mid
+
+    return left
+        
