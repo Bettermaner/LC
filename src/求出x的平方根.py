@@ -19,7 +19,7 @@ def func(x,n):
     right = x
 
     while (right - left) > 0.1 ** n:
-        mid = (left + right) // 2
+        mid = (left + right) / 2
 
         if mid ** 2  > x:
             right = mid
@@ -30,3 +30,5 @@ def func(x,n):
 
     return left
         
+
+print(func(5,3))
