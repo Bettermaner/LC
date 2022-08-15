@@ -24,3 +24,7 @@ def find_min_rotated_array(inputs):
             right -= 1
 
     return inputs[right]
+
+# 2.旋转数组的中位数
+# 如果求旋转数组的中位数
+    # 先确定最小值的位置，然后根据中位数的距离最小值的长度，从最小值位置移动，即求中位数感觉应该可行.
