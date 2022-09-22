@@ -36,7 +36,7 @@ class object :
 
 
 o = object()
-print(o.per('abca'))
+# print(o.per('abca'))
 
 
 # 2.字符串有重复的全排列
@@ -74,7 +74,7 @@ class object2 :
 
 
 o = object2()
-print(o.per('abca'))
+# print(o.per('abca'))
 
 # 3.输入字符串，输出字符串中字符的所有组合 (2 ** n -1)
 # 当交换字符串中的字符时，虽然得到了两个不同的排列，但却是同一个组合。比如ab和ba是不同排列但是算一个组合。
@@ -93,8 +93,9 @@ def get_combin(string_array,string,res):
     if len(string_array) == 0:
         return 
 
-    add_string = string + string_array[0]
+    
     # 包含当前字符
+    add_string = string + string_array[0]
     get_combin(string_array[1:],add_string,res)
     # 不包含当前字符
     get_combin(string_array[1:],string,res)
