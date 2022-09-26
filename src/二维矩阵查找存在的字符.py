@@ -39,3 +39,6 @@ def dfs(matrix,string,i,j,index):
     matrix[i][j] = tmp
     
     return res
+
+
+print(find_string_in_matrix([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]],"ABCCED"))
