@@ -4,3 +4,4 @@
     # 状态转移方程: dp[i][j] = min(dp[i-1][j] + mat[i][j] ,dp[i][j-1]+ mat[i][j] )
     # 初始值: dp[0][0] = mat[0][0]
     # 边界值：dp[i][0] = dp[i-1][0] + mat[i][0], dp[0][j] = dp[0][j-1] + mat[0][j]
+
