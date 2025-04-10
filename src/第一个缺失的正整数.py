@@ -4,24 +4,28 @@
 
 
 import copy
-def run(inputs):
+def run(nums):
+
+  for i in range(len(nums)):
+          if nums[i] < 0:
+            nums[i] = len(nums) + 2
+
+  arr = copy.deepcopy(nums)
+  
+  for index , value in enumerate(nums):
+      cor = value -1
+      if cor != index and cor > 0 and cor <= len(nums):
+          tmp = arr[cor]
+          arr[cor] = value
+          arr[index] = cor
     
-    arr = copy.deepcopy(inputs)
-    
-    for index,value in enumerate(inputs):
-        corr = value -1
-        if corr != index and value >0 and value <= len(inputs):
-            tmp = arr[corr] 
-            arr[corr] = value
-            arr[index] = tmp
-    print(arr)
-    
-    for index,value in enumerate(arr):
-        if index != value -1:
-            return index + 1
-            
-    return index + 1
-                
-    
-    
-print(run([1,0,4,2,5,-1]))
+  for index ,value in enumerate(arr):
+      if index != value -1:
+        return index + 1
+
+
+  return len(nums) + 1
+
+print(run([7,8,9,11,12]))
+print(run([1,2,0]))
+print(run([3,4,-1,1]))

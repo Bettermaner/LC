@@ -39,12 +39,13 @@ def in_order_func(root):
 # 前序遍历
 def pre_order_func(root):
 
-    stack  =[]
+    stack  =[root]
     res = []
 
     while stack:
         tmp = stack.pop()
         res.append(tmp.val)
+        # 这里需要注意，这里要先把右节点放到栈里面，因为是先进后出
         if tmp.right:
             stack.append(tmp.right)
         if tmp.left:
