@@ -18,6 +18,11 @@
 # 同理，从右到左维护一个最小值min，在进入左段之前，那么遍历到的nums[i]也都是大于min的，
 # 要求的left也就是最后一个大于min元素的位置。
 
+# 假设输入数组为 [2, 6, 4, 8, 10, 9, 15]：
+
+# 在第一次遍历时，我们会发现6后面有更小的4，因此我们需要更新右边界right。
+# 在第二次遍历时，从后向前检查，我们会发现10前面有更大的9，因此我们需要更新左边界left。
+
 def findUnsortedSubarray( nums) -> int:
         n = len(nums)
         maxn, right = float("-inf"), -1
@@ -35,3 +40,7 @@ def findUnsortedSubarray( nums) -> int:
                 minn = nums[n - i - 1]
         
         return 0 if right == -1 else right - left + 1
+
+# 右边界的更新逻辑：
+# 如果当前的最大值maxn大于当前元素nums[i]，说明当前元素比前面的某些元素小，这意味着这部分序列是无序的，因此更新右边界right为当前索引i。
+# 否则，更新最大值maxn为当前元素nums[i]。

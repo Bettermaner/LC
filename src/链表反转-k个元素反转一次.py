@@ -17,7 +17,7 @@ def reverse_group_k(root,k):
         i = 0
         while i < k and end:
             end = end.next
-        
+            i += 1
         if not end :
             break
         # 记录下一个窗口的起始节点

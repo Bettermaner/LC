@@ -45,14 +45,14 @@ def func(s,t):
             need[value] = 0
         if need[value] > 0:
             need_cnt -= 1
-        need[value] -= 1
+        need[value] -= 1 # 若包含多余的元素，则在need中记为负数
 
         if need_cnt == 0: #步骤一：滑动窗口包含了所有T元素
             while True: #步骤二：增加i，排除多余元素
                 left_value = s[left]
                 if need[left_value] == 0:
                     break
-                need[left_value] += 1
+                need[left_value] += 1 # 每剔除一次多余的元素，就在need对应的value中 + 1，直到最终为0
                 left += 1
 
             if right - left < res[1] - res[0]:  #记录结果
