@@ -50,7 +50,7 @@ def func(s,t):
         if need_cnt == 0: #步骤一：滑动窗口包含了所有T元素
             while True: #步骤二：增加i，排除多余元素
                 left_value = s[left]
-                if need[left_value] == 0:
+                if need[left_value] == 0: # 要么遇到的是T内的元素，说明不能在继续往右移动，直接停止循环；要么遇到多余的元素且目前已为0；
                     break
                 need[left_value] += 1 # 每剔除一次多余的元素，就在need对应的value中 + 1，直到最终为0
                 left += 1
