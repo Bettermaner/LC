@@ -14,9 +14,12 @@ def my_sqrt(x):
 # 1.带浮点的值开平方根，要求返回的值不仅仅包含整数，也带浮点
 # 二分法
 def func(x,n):
-
     left = 0
-    right = x
+
+    if x > 1:
+        right = x
+    else:
+        right = 1
 
     while (right - left) > 0.1 ** n:
         mid = (left + right) / 2
@@ -28,7 +31,7 @@ def func(x,n):
         else:
             left = mid
 
-    return left
+    return round(left,n)
         
 
-print(func(5,3))
+print(func(0.04,3))
