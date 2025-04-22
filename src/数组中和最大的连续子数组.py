@@ -9,7 +9,7 @@ def largest_sum_in_list(inputs):
 
     for i in range(1, len(inputs)):
 
-        max_tmp = max(inputs[i], max_tmp + inputs[i])
+        max_tmp = max(inputs[i], max_tmp + inputs[i]) # 这一步实际上是在决定是否将当前元素加入到现有的子数组中（如果加入后的和更大，就加入）还是从当前元素重新开始一个新的子数组（从当前这个元素，重新开始统计）。
 
         if max_tmp > max_sum:
             max_sum = max_tmp

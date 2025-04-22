@@ -24,6 +24,11 @@ class Solution:
             total += elem
             modulus = total % k
             same = record.get(modulus, 0)
-            ans += same
+            res += same
             record[modulus] = same + 1
         return res
+
+solu = Solution()
+
+res = solu.subarraysDivByK([4,5,0,-2,-3,1],5)
+print(res)
