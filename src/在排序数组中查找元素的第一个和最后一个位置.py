@@ -45,3 +45,54 @@ def find_index(array,target,flag):
 
 
 print(func([5,7,7,8,8,10],8))
+
+
+# 方法2
+def binary_search_first(arr, target):
+    """
+    查找目标元素在数组中的第一个位置
+    """
+    left, right = 0, len(arr) - 1
+    first_pos = -1
+    while left <= right:
+        mid = left + (right - left) // 2
+        if arr[mid] == target:
+            first_pos = mid
+            right = mid - 1  # 继续向左查找
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return first_pos
+
+def binary_search_last(arr, target):
+    """
+    查找目标元素在数组中的最后一个位置
+    """
+    left, right = 0, len(arr) - 1
+    last_pos = -1
+    while left <= right:
+        mid = left + (right - left) // 2
+        if arr[mid] == target:
+            last_pos = mid
+            left = mid + 1  # 继续向右查找
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return last_pos
+
+def find_first_and_last(arr, target):
+    """
+    在排序数组中查找目标元素的第一个位置和最后一个位置
+    """
+    first_pos = binary_search_first(arr, target)
+    last_pos = binary_search_last(arr, target)
+    return first_pos, last_pos
+
+# 示例
+arr = [1, 2, 2, 2, 3, 4, 4, 5, 6, 6, 6, 7]
+target = 2
+first_pos, last_pos = find_first_and_last(arr, target)
+print(f"目标元素 {target} 的第一个位置是：{first_pos}")
+print(f"目标元素 {target} 的最后一个位置是：{last_pos}")

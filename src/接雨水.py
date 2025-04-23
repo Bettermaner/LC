@@ -5,7 +5,6 @@
     # 然后直接遍历数组，取对应的值，计算总的接雨水量
 
 def func(array):
-
     n = len(array)
     if n < 3:
         return 0
@@ -13,9 +12,9 @@ def func(array):
     result = 0
 
     # 从左边的数开始算
-    left_max_h = [0]
+    left_max_h = [array[0]]
     # 反过来的从右边的数开始算
-    right_max_h = [0]
+    right_max_h = [array[-1]]
 
     for i in range(1,n):
         left_max_h.append(max(array[i],left_max_h[-1]))
