@@ -65,3 +65,34 @@ def func(height):
     return max([ (right_b[i] - left_b[i] -1) * height[i] for i in range(n)])
 
 print(func([2,1,5,6,2,3]))
+
+
+
+# 给定一个由 0 和 1 组成的矩阵 matrix ，找出只包含 1 的最大矩形，并返回其面积
+
+# heights数组：用于记录每个位置向上数连续1的数量。每次处理新的一行时，更新这个数组。
+# 栈的应用：为了高效地计算直方图中最大矩形的面积，使用了一个栈来保存柱子的索引。栈中保持递增的高度顺序，以便于快速计算矩形面积。
+# 计算面积：每当遇到一个比栈顶元素小的高度时，就弹出栈顶元素，并计算以该高度为高的矩形面积。宽度通过当前索引和新的栈顶元素索引来确定。
+
+def maximalRectangle(matrix):
+    if not matrix: return 0
+    
+    m, n = len(matrix), len(matrix[0])
+    heights = [0] * (n + 1)  # 多加一位便于处理边界情况
+    max_area = 0
+    
+    for row in matrix:
+        # 更新heights数组
+        for i in range(n):
+            heights[i] = heights[i] + 1 if row[i] == '1' else 0
+        
+        # 使用栈来计算当前行作为底边的最大矩形面积
+        stack = [-1]
+        for i in range(n + 1):
+            while heights[i] < heights[stack[-1]]:
+                h = heights[stack.pop()]
+                w = i - 1 - stack[-1]
+                max_area = max(max_area, h * w)
+            stack.append(i)
+    
+    return max_area

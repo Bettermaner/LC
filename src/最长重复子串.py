@@ -23,7 +23,7 @@ def func(string):
             if window_size > len(result):
                 result = string[left:right]
 
-            right + 1
+            right += 1
             continue
         else:
             left += 1

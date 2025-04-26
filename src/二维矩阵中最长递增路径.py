@@ -22,7 +22,7 @@ def func(matrix):
     for i in range(m):
         for j in range(n):
             
-            res = max(dfs(matrix,dp,i,j,0),res)
+            res = max(dfs(matrix,dp,i,j,-float('inf')),res)
     
     return res
 

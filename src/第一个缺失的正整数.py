@@ -3,28 +3,22 @@
     # 然后再遍历一遍数组，将第一次出现 （当前数字的值和当前数组的索引不相等时），返回当前索引+ 1 大小即可。
 
 
-import copy
 def run(nums):
+  n = len(nums)
+        
+  # 第一步：标记不在范围内的数和调整数组使得每个数尽量放在对应的位置上
+  for i in range(n):
+      while 1 <= nums[i] <= n and nums[nums[i] - 1] != nums[i]:
+          # Swap nums[i] with the number at its target position.
+          nums[nums[i] - 1], nums[i] = nums[i], nums[nums[i] - 1]
 
-  for i in range(len(nums)):
-          if nums[i] < 0:
-            nums[i] = len(nums) + 2
+  # 第二步：查找第一个不符合条件的位置
+  for i in range(n):
+      if nums[i] != i + 1:
+          return i + 1
 
-  arr = copy.deepcopy(nums)
-  
-  for index , value in enumerate(nums):
-      cor = value -1
-      if cor != index and cor > 0 and cor <= len(nums):
-          tmp = arr[cor]
-          arr[cor] = value
-          arr[index] = cor
-    
-  for index ,value in enumerate(arr):
-      if index != value -1:
-        return index + 1
-
-
-  return len(nums) + 1
+  # 如果所有位置都符合条件，则返回n+1
+  return n + 1
 
 print(run([7,8,9,11,12]))
 print(run([1,2,0]))

@@ -10,27 +10,25 @@
 
 def func(array):
 
-    res = 0
-    n = len(array)
-    m = {}
+    if not array:
+        return 0
+    
+    num_set = set(array)  # 使用集合代替字典，因为我们只关心键的存在性
+    longest_streak = 0
+    
+    for num in num_set:
+        # 只有当num是某个连续序列的第一个数时才进入循环
+        if num - 1 not in num_set:
+            current_num = num
+            current_streak = 1
+            
+            while current_num + 1 in num_set:
+                current_num += 1
+                current_streak += 1
+            
+            longest_streak = max(longest_streak, current_streak)
+    
+    return longest_streak
 
-    for i in range(n):
-        m[array[i]] = 1
-
-    for i in range(n):
-        v = array[i]
-
-        # 找出每组连续序列中的第一个数
-        if v-1 not in m:
-            cur_v = v
-            cur_res = 1
-
-        while cur_v + 1 in m:
-            cur_v += 1
-            cur_res += 1
-
-        res = max(cur_res,res)
-
-    return res
 
 print(func([0,3,7,2,5,8,4,6,0,1]))

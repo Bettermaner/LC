@@ -28,17 +28,21 @@ def func(candies):
 
 def func(ratings):
     n = len(ratings)
-
-    candies = [1 for i in range(n)]
-
-    for i in range(1,n):
-        if ratings[i] > ratings[i-1]:
-            candies[i] = candies[i-1] + 1
-
-    for i in range(n-1):
-        if ratings[i+1] < ratings[i]:
-            candies[i] = max(candies[i+1] + 1,candies[i])
-
+        
+    # 初始化每个孩子至少有一个糖果
+    candies = [1] * n
+    
+    # 从左到右遍历，确保右边比左边评分高的孩子获得更多糖果
+    for i in range(1, n):
+        if ratings[i] > ratings[i - 1]:
+            candies[i] = candies[i - 1] + 1
+    
+    # 从右到左遍历，确保左边比右边评分高的孩子获得更多糖果，并且同时满足之前的条件
+    for i in range(n - 2, -1, -1):
+        if ratings[i] > ratings[i + 1]:
+            candies[i] = max(candies[i], candies[i + 1] + 1)
+    
+    # 计算总糖果数
     result = sum(candies)
     return result
 

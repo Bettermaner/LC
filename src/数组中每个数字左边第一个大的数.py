@@ -37,3 +37,4 @@ def func(array):
 print(func([2,4,5,6,8,1]))
 
         
+print(func([2,1,5,3,5,1]))

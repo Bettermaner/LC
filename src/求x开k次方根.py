@@ -19,3 +19,27 @@ def func(x,k):
         
 
 print(func(100,3))
+
+
+def func(x,k,n):
+    left = 0
+
+    if x > 1:
+        right = x
+    else:
+        right = 1
+
+    while (right - left) > 0.1 ** n:
+        mid = (left + right) / 2
+
+        if mid ** k  > x:
+            right = mid
+        elif mid ** k < x:
+            left = mid
+        else:
+            left = mid
+
+    return round(left,n)
+        
+
+print(func(0.04,3))

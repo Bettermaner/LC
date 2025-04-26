@@ -6,38 +6,35 @@
     # 1.dp[i][j] = min(dp[i-1][j] + 1,dp[i][j-1] + 1) , i > 0, j > 0
     # 2.dp[i][j] = min(dp[i+1][j] + 1, dp[i][j+1] + 1), i < len(mat) -1, j < len(mat[0]) -1
 
-class Solution {
-  public int[][] updateMatrix(int[][] matrix) {
-    int m = matrix.length, n = matrix[0].length;
-    int[][] dp = new int[m][n];
-    for (int i = 0; i < m; i++) {
-      for (int j = 0; j < n; j++) {
-        dp[i][j] = matrix[i][j] == 0 ? 0 : 10000;
-      }
-    }
+# 从左上到右下扫描：更新每个位置到其左边和上边的最近0的距离。
+# 从右下到左上扫描：更新每个位置到其右边和下边的最近0的距离。
 
-    // 从左上角开始
-    for (int i = 0; i < m; i++) {
-      for (int j = 0; j < n; j++) {
-        if (i - 1 >= 0) {
-          dp[i][j] = Math.min(dp[i][j], dp[i - 1][j] + 1);
-        }
-        if (j - 1 >= 0) {
-          dp[i][j] = Math.min(dp[i][j], dp[i][j - 1] + 1);
-        }
-      }
-    }
-    // 从右下角开始
-    for (int i = m - 1; i >= 0; i--) {
-      for (int j = n - 1; j >= 0; j--) {
-        if (i + 1 < m) {
-          dp[i][j] = Math.min(dp[i][j], dp[i + 1][j] + 1);
-        }
-        if (j + 1 < n) {
-          dp[i][j] = Math.min(dp[i][j], dp[i][j + 1] + 1);
-        }
-      }
-    }
-    return dp;
-  }
-}
+from typing import List
+
+def updateMatrix(mat: List[List[int]]) -> List[List[int]]:
+    if not mat or not mat[0]:
+        return []
+    
+    m, n = len(mat), len(mat[0])
+    dist = [[float('inf')] * n for _ in range(m)]
+    
+    # 第一次扫描：从左上角到右下角
+    for i in range(m):
+        for j in range(n):
+            if mat[i][j] == 0:
+                dist[i][j] = 0
+            else:
+                if i > 0:
+                    dist[i][j] = min(dist[i][j], dist[i-1][j] + 1)
+                if j > 0:
+                    dist[i][j] = min(dist[i][j], dist[i][j-1] + 1)
+    
+    # 第二次扫描：从右下角到左上角
+    for i in range(m-1, -1, -1):
+        for j in range(n-1, -1, -1):
+            if i < m - 1:
+                dist[i][j] = min(dist[i][j], dist[i+1][j] + 1)
+            if j < n - 1:
+                dist[i][j] = min(dist[i][j], dist[i][j+1] + 1)
+    
+    return dist

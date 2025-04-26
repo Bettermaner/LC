@@ -19,3 +19,6 @@ def cut_rope(rope_length):
             dp[i] = max(dp[i],dp[i -j] * dp[j]) 
 
     return dp[rope_length]
+
+
+print(cut_rope(10))

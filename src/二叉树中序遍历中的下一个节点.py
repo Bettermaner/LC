@@ -38,3 +38,8 @@ class NextNodeBinaryTree:
         self.in_order(root.left)
         self.n_order_list.append(root)
         self.in_order(root.right)
+
+
+
+
+

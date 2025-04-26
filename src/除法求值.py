@@ -148,6 +148,7 @@ class UnionFind:
 def func(equations,values,queries):
     uf = UnionFind()
 
+    # 构图
     for (a,b),val in zip(equations,values):
         uf.add(a)
         uf.add(b)

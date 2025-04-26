@@ -66,3 +66,5 @@ def func(array):
     return dp[l][half_sum_value]
 
 print(func([1,2,3,5]))
+
+print(func([1,5,11,5]))

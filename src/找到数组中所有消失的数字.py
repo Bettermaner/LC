@@ -31,3 +31,15 @@ def func(array):
 
 
 print(func([4,3,2,7,8,2,3,1]))
+
+
+# 返回数组中消失的一个数字
+def func2(nums):
+    n = len(nums)
+    # 计算从0到n的总和
+    total_sum = n * (n + 1) // 2  # 使用整除以确保结果为整数
+    # 计算数组中所有数字的总和
+    array_sum = sum(nums)
+    
+    # 缺失的数字就是两者的差值
+    return total_sum - array_sum

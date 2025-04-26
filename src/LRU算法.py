@@ -11,10 +11,10 @@ class LRU:
 
     def get(self,key):
         if key in self.cache:
-            if key != self.used_list[-1]:
-                self.used_list.remove(key)
-                self.used_list.append(key)
-                return self.cache[key]
+            # 移动到最近使用的位置
+            self.used_list.remove(key)
+            self.used_list.append(key)
+            return self.cache[key]
         else:
             return -1
 
@@ -29,6 +29,36 @@ class LRU:
         self.used_list.append(key)
         self.cache[key] = value
 
+
+# 通义大模型版本
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = {}
+        self.used_list = []
+
+    def get(self, key: int) -> int:
+        if key in self.cache:
+            # 移动到最近使用的位置
+            self.used_list.remove(key)
+            self.used_list.append(key)
+            return self.cache[key]
+        else:
+            return -1
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            # 更新已有键值对，并移动到最近使用的位置
+            self.used_list.remove(key)
+        elif len(self.cache) == self.capacity:
+            # 缓存满时移除最久未使用的键
+            oldest_key = self.used_list.pop(0)
+            del self.cache[oldest_key]
+        
+        # 插入或更新键值对
+        self.used_list.append(key)
+        self.cache[key] = value
 
 # 该数据结构需要满足
 # 1.支持从数组尾部插入元素 2. 支持从数组头部去除元素 3.支持将数组中的任意元素插入到尾部，都需要o(1)的时间复杂度

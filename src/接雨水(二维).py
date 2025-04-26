@@ -57,3 +57,46 @@ def func(heigh):
 
 
 
+
+
+# 通义大模型
+
+import heapq
+
+def trapRainWater(heightMap):
+    if not heightMap or not heightMap[0]:
+        return 0
+
+    m, n = len(heightMap), len(heightMap[0])
+    if m <= 2 or n <= 2:
+        return 0
+
+    visited = [[False] * n for _ in range(m)]
+    heap = []
+    
+    # 将最外层的所有单元格加入到最小堆，并标记为已访问
+    for i in range(m):
+        for j in range(n):
+            if i == 0 or j == 0 or i == m - 1 or j == n - 1:
+                heapq.heappush(heap, (heightMap[i][j], i, j))
+                visited[i][j] = True
+    
+    result = 0
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    
+    while heap:
+        height, x, y = heapq.heappop(heap)
+        
+        for dx, dy in directions:
+            nx, ny = x + dx, y + dy
+            
+            if 0 <= nx < m and 0 <= ny < n and not visited[nx][ny]:
+                if height > heightMap[nx][ny]:
+                    result += height - heightMap[nx][ny]
+                
+                # 更新新位置的高度为最大值（当前高度或邻居高度）
+                new_height = max(height, heightMap[nx][ny])
+                heapq.heappush(heap, (new_height, nx, ny))
+                visited[nx][ny] = True
+    
+    return result

@@ -31,3 +31,35 @@ def rebuild_binary_tree(pre,tin):
     root.right = rebuild_binary_tree(pre[tin_root_index+1:],tin[tin_root_index+1:])
 
     return root
+
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def rebuild_binary_tree(preorder: list, inorder: list) -> TreeNode:
+    if not preorder or not inorder:
+        return None
+    
+    if len(preorder) != len(inorder):
+        raise ValueError("Preorder and inorder lists must have the same length.")
+    
+    # 根节点的值
+    root_value = preorder[0]
+    # 创建当前的根节点
+    root = TreeNode(root_value)
+    
+    # 根节点在中序遍历中的索引位置
+    try:
+        tin_root_index = inorder.index(root_value)
+    except ValueError:
+        raise ValueError("Root value from preorder not found in inorder list.")
+    
+    # 递归构建左右子树
+    root.left = rebuild_binary_tree(preorder[1:tin_root_index + 1], inorder[:tin_root_index])
+    root.right = rebuild_binary_tree(preorder[tin_root_index + 1:], inorder[tin_root_index + 1:])
+    
+    return root

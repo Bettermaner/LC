@@ -61,3 +61,58 @@ class solution():
         return flag and self.index == end
 
 
+
+# 通义大模型跑出
+class Solution():
+    # 例如，字符串["+100","5e2","-123","3.1416","-1E-16"]都表示数值。
+    # 但是["12e","1a3.14","1.2.3","+-5","12e+4.3"]都不是数值。
+    # 一个 'e' 或 'E' ，前面是一个整数或者小数，后面跟着一个整数(可正可负)
+    # 一个整数前面可以有 '+',或 '-'
+    # 小数点前面后面可以有整数也可以无整数
+
+    def __init__(self):
+        self.index = 0
+
+    def integer(self, string):
+        if self.index < len(string) and (string[self.index] == "+" or string[self.index] == "-"):
+            self.index += 1
+        return self.unsigned_integer(string)
+
+    def unsigned_integer(self, string):
+        tmp_index = self.index
+        while self.index < len(string) and string[self.index].isdigit():
+            self.index += 1
+        return self.index > tmp_index
+
+    def is_number(self, string):
+        # 去除开头的空格
+        while self.index < len(string) and string[self.index] == " ":
+            self.index += 1
+        
+        # 去除结尾的空格并计算有效字符串长度
+        end = len(string) - 1
+        while end >= 0 and string[end] == " ":
+            end -= 1
+        end += 1  # 调整到有效字符串的最后一个字符的下一个位置
+        
+        # 字符串为空或仅包含空格的情况
+        if self.index >= end:
+            return False
+        
+        # 判断是否有整数部分
+        flag = self.integer(string)
+        
+        # 判断是否有小数部分
+        if self.index < end and string[self.index] == ".":
+            self.index += 1
+            # 小数点前后的数字可选，至少有一个即可
+            flag = self.unsigned_integer(string) or flag
+        
+        # 判断是否有e/E
+        if self.index < end and (string[self.index] == "e" or string[self.index] == "E"):
+            self.index += 1
+            # e/E后面必须跟着整数
+            flag = self.integer(string) and flag
+        
+        # 检查是否已遍历所有非空格字符
+        return flag and self.index == end

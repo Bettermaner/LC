@@ -26,42 +26,76 @@
     # 这样我们通过needCnt就可以知道是否满足条件，而无需遍历字典了。
     # 前面也提到过，need记录了遍历到的所有元素，而只有need[c]>0大于0时，代表c就是所需元素
 
+# def func(s,t):
+
+#     need = {}
+#     for i in t:
+#         if i not  in need:
+#             need[i] = 0
+#         need[i] += 1
+
+#     need_cnt = len(t)
+
+#     res = [0,len(t)+1]
+
+#     left = 0
+
+#     for right ,value in enumerate(s):
+#         if value not in need:
+#             need[value] = 0
+#         if need[value] > 0:
+#             need_cnt -= 1
+#         need[value] -= 1 # 若包含多余的元素，则在need中记为负数
+
+#         if need_cnt == 0: #步骤一：滑动窗口包含了所有T元素
+#             while True: #步骤二：增加i，排除多余元素
+#                 left_value = s[left]
+#                 if need[left_value] == 0: # 要么遇到的是T内的元素，说明不能在继续往右移动，直接停止循环；要么遇到多余的元素且目前已为0；
+#                     break
+#                 need[left_value] += 1 # 每剔除一次多余的元素，就在need对应的value中 + 1，直到最终为0
+#                 left += 1
+
+#             if right - left < res[1] - res[0]:  #记录结果
+#                 res = [left,right]
+
+#             need[left_value] += 1 #步骤三：i增加一个位置，寻找新的满足条件滑动窗口
+#             need_cnt += 1
+#             left += 1
+
+#     return "" if res[1] > len(s) else s[res[0]:res[1]+ 1] #如果res始终没被更新过，代表无满足条件的结果
+
+# print(func("ADOBECODEBANC","ABC"))
+
+
 def func(s,t):
 
     need = {}
-    for i in t:
-        if i not  in need:
-            need[i] = 0
-        need[i] += 1
+    for char in t:
+        if char not in need:
+            need[char] = 0
+        need[char] += 1
 
     need_cnt = len(t)
-
-    res = [0,len(t)+1]
+    res = [0, len(s)]  # 初始化为整个s的长度，确保可以正确更新
 
     left = 0
+    for right, value in enumerate(s):
+        if value in need:
+            if need[value] > 0:
+                need_cnt -= 1
+            need[value] -= 1 # 若包含多余的元素，则在need中记为负数
 
-    for right ,value in enumerate(s):
-        if value not in need:
-            need[value] = 0
-        if need[value] > 0:
-            need_cnt -= 1
-        need[value] -= 1 # 若包含多余的元素，则在need中记为负数
+        while need_cnt == 0:  # 当窗口包含了所有T元素
+            if right - left < res[1] - res[0]:  # 更新最短子串
+                res = [left, right]
 
-        if need_cnt == 0: #步骤一：滑动窗口包含了所有T元素
-            while True: #步骤二：增加i，排除多余元素
-                left_value = s[left]
-                if need[left_value] == 0: # 要么遇到的是T内的元素，说明不能在继续往右移动，直接停止循环；要么遇到多余的元素且目前已为0；
-                    break
-                need[left_value] += 1 # 每剔除一次多余的元素，就在need对应的value中 + 1，直到最终为0
-                left += 1
-
-            if right - left < res[1] - res[0]:  #记录结果
-                res = [left,right]
-
-            need[left_value] += 1 #步骤三：i增加一个位置，寻找新的满足条件滑动窗口
-            need_cnt += 1
+            left_value = s[left]
+            if left_value in need:
+                need[left_value] += 1
+                if need[left_value] > 0:
+                    need_cnt += 1
             left += 1
 
-    return "" if res[1] > len(s) else s[res[0]:res[1]+ 1] #如果res始终没被更新过，代表无满足条件的结果
+    return "" if res[1] == len(s) else s[res[0]:res[1]+1]
 
 print(func("ADOBECODEBANC","ABC"))

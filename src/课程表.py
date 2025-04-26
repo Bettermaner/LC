@@ -30,7 +30,7 @@ def func(nums,prerequires):
     # 加入队列中
     for cur, value in enumerate(courses):
         if value == 0:
-            queue.append[cur]
+            queue.append(cur)
 
     # 若队列非空，就依次从队列中取出节点
     # 先进先出原则

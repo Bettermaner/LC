@@ -56,3 +56,49 @@ if __name__ == "__main__":
     values = [3, 4, 8, 8, 10]
     container = 20
     print(knapasack_problem(weights, values, container))
+
+
+# 通义大模型跑出代码
+
+def knapsack_problem(weights, values, container):
+    """
+    解决0/1背包问题 (动态规划)
+    """
+
+    # 物品列表，索引从1开始
+    items = [{"w": w, "v": v} for w, v in zip(weights, values)]
+    
+    # 初始化二维表，所有值设为0
+    table = {(i, w): 0 for i in range(len(items) + 1)
+             for w in range(container + 1)}
+
+    # 动态规划填充表格
+    for i in range(1, len(items) + 1):
+        for w in range(1, container + 1):
+            if items[i-1]["w"] > w:
+                table[(i, w)] = table[(i-1, w)]
+            else:
+                table[(i, w)] = max(table[(i-1, w)],
+                                    items[i-1]['v'] + table[(i-1, w - items[i-1]['w'])])
+
+    # 最大价值对应二维表格的右下角位置
+    max_value = table[(len(items), container)]
+
+    # 回溯确定哪些物品被选中
+    result = []
+    num = len(items)
+    c = container
+    while num > 0:
+        if table[(num, c)] != table[(num-1, c)]:
+            result.append(items[num-1])
+            c -= items[num-1]['w']
+        num -= 1
+
+    return max_value, result
+
+
+if __name__ == "__main__":
+    weights = [1, 3, 5, 7, 9]
+    values = [3, 4, 8, 8, 10]
+    container = 20
+    print(knapsack_problem(weights, values, container))

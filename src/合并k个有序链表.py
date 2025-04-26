@@ -43,3 +43,26 @@ class Solution:
                 lists[idx] = lists[idx].next
         return dummy.next
 
+
+
+
+def build_min_heap(heap):
+    length = len(heap)
+
+    for i in range(int(length/2 -1),-1,-1):
+        min_heapify(heap,length,i)
+
+
+def min_heapify(heap,length,root):
+    min = root
+    left = 2 * root + 1
+    right = 2* root + 2
+
+    if  length > left and heap[min] > heap[left] :
+        min = left
+    if length > right and heap[min] > heap[right]:
+        min = right
+    if min != root:
+        heap[root],heap[min] = heap[min],heap[root]
+        min_heapify(heap,len(heap),min)
+    

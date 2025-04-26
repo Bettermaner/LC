@@ -50,3 +50,5 @@ def re_order_array(inputs):
 
     return inputs
 
+
+print(re_order_array([2,2,3,1,9,4,6,5]))

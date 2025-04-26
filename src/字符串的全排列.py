@@ -39,7 +39,10 @@ class object :
 
 
 o = object()
-# print(o.per('abca'))
+print(o.per('abca'))
+o = object()
+print(o.per('123'))
+
 
 
 # 2.字符串有重复的全排列
@@ -104,4 +107,4 @@ def get_combin(string_array,string,res):
     get_combin(string_array[1:],string,res)
 
 
-print(combin(['a','b','c','d']))
+# print(combin(['a','b','c','d']))

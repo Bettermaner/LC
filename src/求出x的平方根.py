@@ -35,3 +35,30 @@ def func(x,n):
         
 
 print(func(0.04,3))
+
+
+
+# 只保留整数部分的情况
+def mySqrt(x: int) -> int:
+    if x < 0:
+        raise ValueError("Cannot compute the square root of a negative number.")
+    if x == 0 or x == 1:
+        return int(x)
+
+    left, right = 0, max(1, x)  # 对于x<1的情况，right设为1；否则设为x
+
+    while left <= right:
+        mid = (left + right) // 2
+        square = mid * mid
+        
+        if square == x:
+            return mid
+        elif square < x:
+            left = mid + 1
+        else:
+            right = mid - 1
+            
+    # 返回最接近但不大于实际平方根的整数值
+    return right
+
+print(my_sqrt(0.02))

@@ -31,7 +31,7 @@ def max_profit(prices):
 # 此方法同样使用于，股票可以多次买入卖出的情况。
 
 
-# 最佳买卖股票时机含冷冻期
+# 2.最佳买卖股票时机含冷冻期
 # 给定一个整数数组prices，其中第  prices[i] 表示第 i 天的股票价格 。​
 
 # 设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:
@@ -74,3 +74,38 @@ def func(prices):
     return max(dp[n-1][1],dp[n-1][2])
 
 print(func([1,2,3,0,2]))
+
+
+
+# 3.最佳买卖股票时机V2
+# 在每一天，你可以决定是否购买和/或出售股票。你在任何时候 最多 只能持有 一股 股票。你也可以先购买，然后在 同一天 出售
+
+# 对于hold状态：
+## 如果我们在今天买入股票，则今天的最大利润为not_hold - prices[i]（即前一天不持有股票的利润减去今天的股价）。
+## 如果我们继续持有昨天的股票，则今天的最大利润为hold（即昨天持有的利润）。
+## 因此，hold = max(hold, not_hold - prices[i])。
+
+#对于not_hold状态：
+## 如果我们在今天卖出股票，则今天的最大利润为hold + prices[i]（即昨天持有股票的利润加上今天的股价）。
+## 如果我们继续保持不持有股票，则今天的最大利润为not_hold（即昨天不持有股票的利润）。
+## 因此，not_hold = max(not_hold, hold + prices[i])。
+from typing import List
+
+def maxProfit(prices: List[int]) -> int:
+    if not prices:
+        return 0
+    
+    # 初始化状态
+    hold, not_hold = -prices[0], 0
+    
+    for i in range(1, len(prices)):
+        # 更新hold和not_hold
+        hold = max(hold, not_hold - prices[i])
+        not_hold = max(not_hold, hold + prices[i])
+    
+    # 最终结果是不持有股票时的最大利润
+    return not_hold
+
+# 示例
+prices = [7, 1, 5, 3, 6, 4]
+print(maxProfit(prices))  # 输出应该是7 (买入->1, 卖出->5, 再买入->3, 再卖出->6)
