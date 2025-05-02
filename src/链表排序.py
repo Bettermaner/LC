@@ -19,6 +19,14 @@
     # 时间复杂度 O(l + r)，l, r 分别代表两个链表长度。
     # 当题目输入的 head == None 时，直接返回None。
 
+# 1. 分割过程：O(log n)
+# 每次将链表从中间分割成两半，递归深度为 log n。
+# 2. 排序与合并过程：O(n log n)
+# 对于每一层递归，总共需要合并 n 个节点。
+# 共有 log n 层。
+# 时间复杂度	O(n log n)
+# 空间复杂度	O(log n)（递归栈）
+
 def func(head):
 
     if not head or not head.next:
@@ -53,3 +61,45 @@ def func(head):
     res.next = left if left else right
 
     return h.next
+
+
+# 通义大模型写出
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def func(head: ListNode) -> ListNode:
+    if not head or not head.next:
+        return head
+
+    # 快慢指针找中点
+    slow = head
+    fast = head.next
+
+    while fast and fast.next:
+        fast = fast.next.next
+        slow = slow.next
+
+    mid = slow.next
+    slow.next = None
+
+    left = func(head)
+    right = func(mid)
+
+    # 合并两个有序链表
+    dummy = ListNode(-1)
+    curr = dummy
+
+    while left and right:
+        if left.val < right.val:
+            curr.next = left
+            left = left.next
+        else:
+            curr.next = right
+            right = right.next
+        curr = curr.next
+
+    curr.next = left if left else right
+
+    return dummy.next

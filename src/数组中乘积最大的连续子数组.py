@@ -24,3 +24,5 @@ def largest_product_in_list(inputs):
 if __name__ == "__main__":
 
     print(largest_product_in_list([2, -3, 2, -5, -5]))
+
+# 若还需要考虑返回最大乘积对应的子数组，应该怎么做？

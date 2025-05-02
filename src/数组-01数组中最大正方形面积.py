@@ -14,6 +14,9 @@
 
 # i = 0 or j = 0, dp[i][j] = 1
 
+# 时间复杂度	O(m × n)
+# 空间复杂度	O(m × n)
+
 def func(maxt):
 
     m = len(maxt)

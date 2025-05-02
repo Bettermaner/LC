@@ -33,6 +33,14 @@ def rebuild_binary_tree(pre,tin):
     return root
 
 
+# 通义大模型版本
+
+# 输入: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+# 输出: [3,9,20,null,null,15,7]
+
+# 方法1 : 递归       
+# 时间复杂度	O(n²)（最坏情况）
+# 空间复杂度	O(n²)（最坏情况）
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -63,3 +71,46 @@ def rebuild_binary_tree(preorder: list, inorder: list) -> TreeNode:
     root.right = rebuild_binary_tree(preorder[tin_root_index + 1:], inorder[tin_root_index + 1:])
     
     return root
+
+
+
+# 方法2 : 哈希表+ 递归栈      
+# 每个节点都会被访问一次，哈希表用于快速定位根节点位置。
+# 所以总时间复杂度为：O(n)
+# 使用了一个哈希表存储中序遍历的索引，空间复杂度为 O(n)
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def buildTree(self, preorder, inorder):
+        # 哈希映射：用于快速查找中序遍历中根节点的位置
+        index_map = {val: idx for idx, val in enumerate(inorder)}
+        self.pre_idx = 0  # 指向前序遍历的指针
+
+        def helper(left, right):
+            # 当左边界大于右边界时，说明子树为空
+            if left > right:
+                return None
+
+            # 当前子树的根节点是前序遍历当前指向的值
+            root_val = preorder[self.pre_idx]
+            root = TreeNode(root_val)
+
+            # 在中序遍历中找到根的位置，划分左右子树
+            index = index_map[root_val]
+
+            # 前序指针后移
+            self.pre_idx += 1
+
+            # 构建左子树
+            root.left = helper(left, index - 1)
+            # 构建右子树
+            root.right = helper(index + 1, right)
+
+            return root
+
+        return helper(0, len(inorder) - 1)

@@ -4,6 +4,12 @@
 # 输出：4
 # 解释：最长有效括号子串是 "()()"
 
+# 方法	时间复杂度	空间复杂度
+# 解法一：动态规划	O(n)	O(n)
+# 解法二：栈	O(n)	O(n)
+# 解法三：双向遍历	O(n)	O(1)
+
+# 解法一：动态规划
 # 解题思路
      # 动态规划
 
@@ -34,3 +40,67 @@ def func(s):
     return res
 
 print(func("()(()())"))
+
+
+
+# 🧠 解法二：使用 栈（Stack）
+# 💡 思路
+# 使用栈来记录左括号的位置索引。并用一个变量 start 来记录无效右括号的位置或上一个不匹配的位置。
+
+# 遇到 '('，将它的下标压入栈
+# 遇到 ')'：
+# 如果栈为空，说明当前没有可以匹配的 '('，更新 start
+# 如果栈不为空，弹出一个元素，并计算当前有效长度
+
+def longestValidParentheses(s: str) -> int:
+    stack = [-1]  # 初始放入 -1，用于处理边界情况
+    max_len = 0
+
+    for i, char in enumerate(s):
+        if char == '(':
+            stack.append(i)
+        else:
+            stack.pop()
+            if not stack:
+                stack.append(i)
+            else:
+                max_len = max(max_len, i - stack[-1])
+
+    return max_len
+
+
+# 🧠 解法三：两次遍历（从左到右 + 从右到左）
+# 💡 思路
+# 第一次从左往右扫描，统计左右括号数量，当 left == right 时更新最大值
+# 第二次从右往左扫描，同样逻辑，防止漏掉某些情况
+
+def longestValidParentheses(s: str) -> int:
+    left = right = max_len = 0
+
+    # 从左到右扫描
+    for char in s:
+        if char == '(':
+            left += 1
+        else:
+            right += 1
+        if left == right:
+            max_len = max(max_len, right * 2)
+        elif right > left:
+            left = right = 0
+
+    left = right = 0
+
+    # 从右到左扫描
+    for char in reversed(s):
+        if char == '(':
+            left += 1
+        else:
+            right += 1
+        if left == right:
+            max_len = max(max_len, left * 2)
+        elif left > right:
+            left = right = 0
+
+    return max_len
+
+

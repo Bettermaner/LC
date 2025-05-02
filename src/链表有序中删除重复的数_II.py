@@ -3,6 +3,7 @@ class ListNode:
         self.val = x
         self.next = None
 
+# 这种方法确保了所有重复的节点都被移除，同时保持了链表的结构。时间复杂度为 O(n)，空间复杂度为 O(1)，非常高效。
 
 def delete_dulicate_in_list(phead):
     "在有序的链表中删除重复的数(重复的数与数本身都需要删除)"

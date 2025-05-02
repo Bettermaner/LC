@@ -4,6 +4,9 @@
     # 对1中得到的三个字符串组合 {abc, bac, cba}，重复1的过程，不过需要注意的是，这时是从第1位字符开始。举个栗子，对于 abc 来说 ，此时它的第1位字符是 b，那么需要将 b 之后的字符包括它本身与之交换，即需要交换两次 b <=> b, b <=> c，那么得到两组不同的字符串组合 {abc, acb}。
     # 对于2中得到的字符串组合，重复以上的过程，此时其实已经遍历到最后一个字符了，不做交换也可以，直接将字符串本身输出即可。这时我们就得到了所有的排列组合可能性。
 
+# 时间复杂度分析
+# 总共会有 n! 个排列（n 是字符串长度），每个排列需要 O(n) 时间构建。
+# 所以总时间复杂度为 O(n × n!)，空间复杂度O(n×n!)
 
 class object :
 
@@ -43,6 +46,27 @@ print(o.per('abca'))
 o = object()
 print(o.per('123'))
 
+# 优化版
+# 如果输入字符串中有重复字符（比如 "aab"），这个代码会产生重复的排列。你可以通过以下方式优化：
+
+# 使用 set() 去重（效率较低）。
+# 在递归前判断是否已经处理过相同字符（推荐）
+
+def sper(self, strings, begin, end):
+    if begin == end:
+        self.result.append("".join(strings))
+        return
+
+    for i in range(begin, end):
+        # 剪枝去重：避免相同字符放在同一位置多次
+        if i != begin and strings[i] == strings[begin]:
+            continue
+        # 交换
+        strings[begin], strings[i] = strings[i], strings[begin]
+        self.sper(strings, begin + 1, end)
+        # 回溯
+        strings[begin], strings[i] = strings[i], strings[begin]
+
 
 
 # 2.字符串有重复的全排列
@@ -80,7 +104,7 @@ class object2 :
 
 
 o = object2()
-# print(o.per('abca'))
+print(o.per('abca'))
 
 # 3.输入字符串，输出字符串中字符的所有组合 (2 ** n -1)
 # 当交换字符串中的字符时，虽然得到了两个不同的排列，但却是同一个组合。比如ab和ba是不同排列但是算一个组合。

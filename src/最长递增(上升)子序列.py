@@ -5,6 +5,8 @@
     # 初始值 dp[i] = 1,因为子递增序列至少长度为1
     # 转移方程 if num[i] > num[j] ,dp[i] = dp[j] + 1,   j 表示比i小的索引，依次遍历得到
 
+# 此代码的时间复杂度为 O(n^2)
+
 def func(array):
 
     n = len(array)

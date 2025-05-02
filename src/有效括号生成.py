@@ -25,6 +25,12 @@
 
     # 注：上述遍历是没有重复情况出现的，即当 (p1,q1)≠(p2,q2) 时，按上述方式取的括号组合一定不同。
 
+
+# 综合以上分析，总体的时间复杂度可以估计为：
+# 外层循环 O(n)
+# 内层循环对于每个 i 需要处理 O(i * C_p * C_q) 的操作
+# 总体来说，由于每个 dp[i] 的大小是卡特兰数级别的，所以总的时间复杂度大致为 O(n * 4^n / sqrt(n))
+
 def func(n):
     if n == 0:
         return []
@@ -55,3 +61,31 @@ def func(n):
 
 
 print(func(3))
+
+
+# 解放二：回溯法
+# 我们可以使用递归的方式构造字符串：
+
+# 当前字符串中 '(' 的数量为 left，')' 的数量为 right
+# 只要满足 left <= n 和 right <= left，就可以选择添加新的括号：
+# 如果 left < n，可以加 '('
+# 如果 right < left，可以加 ')'
+# 我们从空字符串开始，递归地构建所有可能的有效括号组合。
+
+
+def generateParenthesis(n: int):
+    result = []
+
+    def backtrack(current: str, left: int, right: int):
+        if len(current) == 2 * n:
+            result.append(current)
+            return
+        # 如果还可以加左括号
+        if left < n:
+            backtrack(current + '(', left + 1, right)
+        # 如果当前右括号比左括号少，可以加右括号
+        if right < left:
+            backtrack(current + ')', left, right + 1)
+
+    backtrack("", 0, 0)
+    return result

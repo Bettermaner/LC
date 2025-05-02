@@ -1,0 +1,77 @@
+; 给定两个大小分别为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的 中位数 。
+
+; 算法的时间复杂度应该为 O(log (m+n)) 。
+
+; 示例 1：
+
+; 输入：nums1 = [1,3], nums2 = [2]
+; 输出：2.00000
+; 解释：合并数组 = [1,2,3] ，中位数 2
+; 示例 2：
+
+; 输入：nums1 = [1,2], nums2 = [3,4]
+; 输出：2.50000
+; 解释：合并数组 = [1,2,3,4] ，中位数 (2 + 3) / 2 = 2.5
+
+; 我们不直接合并数组来找中位数（O(m+n)），
+; 而是使用一个更聪明的方法：在两个数组中找到第 k 小的数，这样时间复杂度可以做到 O(log (m+n))。
+
+; ✅ 核心思想：将问题转化为“寻找第 k 小的数”，
+; 我们要找的是两个有序数组合并后的中位数，它取决于：
+; 如果总长度 m + n 是奇数 → 找第 (m + n + 1) // 2 小的数
+; 如果是偶数 → 找第 (m + n) // 2 和第 (m + n) // 2 + 1 小的两个数的平均值
+; 所以我们只需要实现一个函数：在两个有序数组中找到第 k 小的数
+
+
+; 时间复杂度分析
+; 每次我们都把 k 减半，所以每次都在向后移动指针，最多进行 log(k) 次操作
+; 这里 k 最多是 (m + n) // 2 + 1，因此整体时间复杂度是：O(log (m+n)) 
+; 空间复杂度：O(1）
+
+
+
+def findMedianSortedArrays(nums1, nums2):
+    def get_kth_element(k):
+        """
+        返回两个数组中第k小的元素（从1开始计数）
+        """
+        index1, index2 = 0, 0  # 当前在 nums1 和 nums2 中的位置
+        while True:
+            # 边界情况处理
+            if index1 == m:  # nums1 已经走完了
+                return nums2[index2 + k - 1]
+            if index2 == n:  # nums2 已经走完了
+                return nums1[index1 + k - 1]
+            if k == 1:       # 只需要找第一个元素了
+                return min(nums1[index1], nums2[index2])
+
+            # 计算当前要比较的 mid 索引，二分查找
+            new_index1 = min(index1 + k // 2 - 1, m - 1)
+            new_index2 = min(index2 + k // 2 - 1, n - 1)
+            pivot1, pivot2 = nums1[new_index1], nums2[new_index2]
+
+            # 根据比较结果缩小搜索范围
+            if pivot1 <= pivot2:
+                k -= new_index1 - index1 + 1
+                index1 = new_index1 + 1
+            else:
+                k -= new_index2 - index2 + 1
+                index2 = new_index2 + 1
+    
+    m, n = len(nums1), len(nums2)
+    total_len = m + n
+    if total_len % 2 == 1:
+        return float(get_kth_element((total_len + 1) // 2))
+    else:
+        left = get_kth_element(total_len // 2)
+        right = get_kth_element(total_len // 2 + 1)
+        return (left + right) / 2.0
+
+            
+; 思路总结：
+; 我们可以把这个问题看作是一个“剪枝”的过程：
+
+; 每次从两个数组中各取前 k//2 个元素进行比较；
+; 哪边的小，就说明这些元素不可能是第 k 小的；
+; 把这部分剪掉，然后更新 k 的值；
+; 重复这个过程，直到找到答案。

@@ -20,3 +20,5 @@ def largest_sum_in_list(inputs):
 if __name__ == "__main__":
 
     print(largest_sum_in_list([2, -3, 6, 2, 1, -5, -5, 8]))
+
+# 若还需要考虑返回最大和对应的子数组，应该怎么做？
