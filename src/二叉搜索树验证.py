@@ -26,3 +26,36 @@ class obj:
         pre = root.val
 
         return self.func(root.right)
+    
+
+
+# 通义大模型版本
+# 🧠 方法解释
+# 使用递归函数 validate(node, low, high) 来判断当前节点是否在合法范围内；
+# 对于左子树来说，最大值不能超过当前节点；
+# 对于右子树来说，最小值不能低于当前节点；
+# 如果任何一层不满足条件，直接返回 False。
+
+# 时间复杂度: O(n)，其中 n 是树中节点的数量。每个节点最多访问一次。
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def isValidBST(root: TreeNode) -> bool:
+    # 使用辅助函数来进行递归检查
+    def is_valid(node, lower=float('-inf'), upper=float('inf')):
+        if not node:
+            return True
+        
+        # 检查当前节点值是否在允许范围内
+        if node.val <= lower or node.val >= upper:
+            return False
+        
+        # 递归检查左右子树
+        return (is_valid(node.left, lower, node.val) and
+                is_valid(node.right, node.val, upper))
+    
+    return is_valid(root)

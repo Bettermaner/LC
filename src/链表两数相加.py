@@ -35,3 +35,47 @@ def func(phead1,phead2):
             cur.next = Node(carray)
 
     return pre.next 
+
+
+# 通义大模型版本
+
+# 时间复杂度: O(max(m, n))
+# 其中 m 和 n 分别是两个链表的长度。我们只需要遍历一次较长的那个链表。
+
+# 空间复杂度: O(max(m, n))
+# 返回的结果链表长度最多为 max(m, n) + 1（可能最后多出一个进位）。
+
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def addTwoNumbers(l1: ListNode, l2: ListNode) -> ListNode:
+    # 虚拟头节点，方便操作链表
+    dummy = ListNode(0)
+    current = dummy  # 当前指针用于构建新链表
+    carry = 0  # 进位值
+
+    # 只要有一个链表还没结束 或者 还有进位，就继续运算
+    while l1 or l2 or carry:
+        # 获取当前节点的值
+        val1 = l1.val if l1 else 0
+        val2 = l2.val if l2 else 0
+
+        # 相加并处理进位
+        total = val1 + val2 + carry
+        carry = total // 10
+        digit = total % 10
+
+        # 创建新节点并连接
+        current.next = ListNode(digit)
+        current = current.next
+
+        # 移动指针
+        if l1:
+            l1 = l1.next
+        if l2:
+            l2 = l2.next
+
+    return dummy.next
