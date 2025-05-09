@@ -27,3 +27,20 @@ class Solution:
 
         # dp[amount] 就是所需的最少硬币数量
         return dp[amount]
+    
+
+
+# 计算零钱的组合方式数
+def run(amount,cons):
+    
+    dp = [0] * (amount +1) 
+    dp[0] = 1
+    
+    for i in range(1,amount+1): 
+        for con in cons:
+            if i >= con:
+                dp[i] +=  dp[i-con]
+            
+    return dp[amount]
+                
+print(run(3,[1,3,5]))
