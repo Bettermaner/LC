@@ -11,7 +11,7 @@
 def run(nums):
   n = len(nums)
         
-  # 第一步：标记不在范围内的数和调整数组使得每个数尽量放在对应的位置上
+  # 第一步：标记在范围内的数和调整数组使得每个数尽量放在对应的位置上
   for i in range(n):
       while 1 <= nums[i] <= n and nums[nums[i] - 1] != nums[i]:
           # Swap nums[i] with the number at its target position.
